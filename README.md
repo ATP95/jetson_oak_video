@@ -15,7 +15,7 @@ utilizando estos parametros esta habilitada tanto la conexion *ssh* como la cone
 
 El [programa principal](main.py) captura la imagen de las camaras OAK PoE las cuales fueron asignadas a las **ip estaticas** *192.168.1.2* y *192.168.1.3* .
 
- Una de las camaras captura ambas imagenes mono y tambien rgb y las guarda en la capteta **stereo** ( carpeta creada automaticamente en el mismo directorio de ejecución del programa), mientras que, la otra camara solo captura la imagen rgb y la guarda en la carpeta de nombre **rgb**. Los archivos estan guardados a **30 fps** en calidad *MJPEG*.
+ Una de las camaras captura ambas imagenes mono y tambien rgb y las guarda en la carpeta **stereo** ( carpeta creada automaticamente en el mismo directorio de ejecución del programa), mientras que, la otra camara solo captura la imagen rgb y la guarda en la carpeta de nombre **rgb**. Los archivos estan guardados a **30 fps** en calidad *MJPEG*.
 
  Al mismo tiempo se  crea una id unica para los archivos utilizando la fecha y hora en la que empezo a correr el programa
  ```python
@@ -23,7 +23,7 @@ El [programa principal](main.py) captura la imagen de las camaras OAK PoE las cu
  ```
 con esto se tambien se crea un diccionario que tiene como llaves el nombre de archivo y como valores **false** indicando esto que el archivo aun no a sido enviado a almacenamiento. Este diccionario se guarda localmente como archivo JSON para poder acceder a este desde fuera de la instancia actual del programa.
 
-El programa funciona durante 1 hora por defecto (*se puede cambiar en linea 152*) y luego deja de capturar imagenes para subir a la nube lo que ya ha guardado.
+El programa funciona durante 1 hora por defecto ([se puede cambiar en linea 152](main.py#L152)) y luego deja de capturar imagenes para subir a la nube lo que ya ha guardado.
 
 ---
 ## Subida a la nube
