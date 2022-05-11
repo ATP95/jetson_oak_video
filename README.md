@@ -37,9 +37,33 @@ por el momento no se utilizo ninguna forma de computacion en paralelo para subir
 
 ---
 
+## Correr Programa como servicio en Jetson
 
+Para que el programa funcione cada vez que la Jetson enciende y que cada vez que se complete el ciclo de captura de imagen y subida se vueva a iniciar nuevamente, se deja el programa funcionando como servicio para que así sea el sistema operativo el que se encarge de reiniciarlo.
 
+El archivo [camera-oak.service](camera-oak.service) correspondera al servicio **camera-oak** en los ajustes del sistema. Para indicarle al servicio que programa usar, en la linea ExecStart se colocan la direccion al interprete de python, espacio, direccion del script (en este caso [main.py](main.py)).
 
+```service
+ExecStart = <direccion del interprete de python> <direccion del script.py a correr>
+```
 
+Para habilitar el servicio se deben ejecutar los siguientes comandos en el mismo directorio que el archivo *.service*:
+```bash 
+$ sudo cp camera-oak.service /etc/systemd/system/
+$ sudo systemctl daemon-reload
+$ sudo systemctl enable camera-oak.service
+```
+Para iniciar el servicio (comenzara a ejecutarse el script y la captura de imagen) se debe usar
+```bash
+$ sudo systemctl start camera-oak.service
+```
 
-
+Para parar el servicio(dejara de capturar imagen o de subir a la nube y no volvera a reiniciar automaticamente)
+```bash
+$ sudo systemctl stop camera-oak.service
+```
+Para reiniciar o para comprobar el estatus del servicio, usar respectivamente
+```bash
+$ sudo systemctl restart camera-oak.service
+$ sudo systemctl status camera-oak.service
+```
