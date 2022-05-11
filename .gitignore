@@ -1,0 +1,5 @@
+files_test/
+__pycache__/
+stereo/
+rgb/
+*.json

@@ -1,0 +1,14 @@
+[Unit]
+Description = This service start the recording of the oak cameras on startup.
+After = network.target # Assuming you want to start after network interfaces are made available
+ 
+[Service]
+Type = simple
+ExecStart = /home/jetsoak/.virtualenvs/depthAI/bin/python /home/jetsoak/Documents/camera_blablalba.py
+User = jetsoak
+Restart=always # Always run
+RestartSec = 5
+TimeoutStartSec = infinity
+ 
+[Install]
+WantedBy = multi-user.target # Make it accessible to other users
