@@ -5,7 +5,7 @@ import google.auth.transport.requests as tr_requests
 from io import BytesIO
 from google.resumable_media.common import InvalidResponse 
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.path.join(os.getcwd(),"oak-storage-347821-6afa46c62dab.json")
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.path.join(os.getcwd(),"oak-storage-347821-3e7a28e22c99.json")
 
 # storage_client = storage.Client()
 
@@ -54,8 +54,7 @@ class GSUObject_Resumable():
 
     def start(self):
         print(f"Creating resumable upload for {self.file_path}.")
-        with open(self.file_path,"rb") as f:
-            data = f.read()
+        self.data_buffer =  open(self.file_path,"rb")
         url = (
             f'https://www.googleapis.com/upload/storage/v1/b/'
             f'{self._bucket.name}/o?uploadType=resumable'
@@ -63,13 +62,14 @@ class GSUObject_Resumable():
         self._upload = ResumableUpload(upload_url=url, chunk_size=self._chunk_size)
 
         self._upload.initiate(self._transport,
-                        stream=BytesIO(data),
+                        stream= self.data_buffer,
                         metadata={"name":self._blob.name},
                         stream_final=True,
                         content_type="video/stream")
 
     def stop(self):
         print("Uploaded: ",self._upload.total_bytes, " bytes")
+        self.data_buffer.close()
     #TODO ver si hay alguna forma de usar tell para reanudar desde un apagon
     def transmit(self):
         print("Starting Upload")
@@ -82,6 +82,6 @@ class GSUObject_Resumable():
 
 
 # -------------Resumable---------------- 
-# with GSUObject_Resumable("video_test4.MJPEG","/home/jetsoak/Desktop/PythonScripts/OAK-D-POE_rbg.MJPEG", bucket_name) as ru:
+# with GSUObject_Resumable("git.exe",r"D:\Downloads\git.exe", bucket_name) as ru:
 #     ru.transmit()
 
