@@ -3,3 +3,5 @@ __pycache__/
 stereo/
 rgb/
 *.json
+*.ipynb
+*.http
